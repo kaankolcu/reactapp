@@ -18,7 +18,8 @@ import IconBtns from "../components/IconButtons/IconBtns";
 
 import {
   MenuIconBtn,
-  ChevronIconBtn
+  ChevronIconBtn,
+  NightModeSwitch
 } from "../components/IconButtons/IconBtns";
 
 import { Link } from "react-router-dom";
@@ -162,6 +163,9 @@ class PersistentDrawerLeft extends React.Component {
                 </Link>
               ))}
             </List>
+            <Divider />
+            <h3>Night Mode</h3>
+            <NightModeSwitch theme={theme} />
           </Drawer>
         </ClickAwayListener>
         <div

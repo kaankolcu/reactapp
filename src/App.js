@@ -13,6 +13,11 @@ function App() {
   return (
     <div className="App">
       <MuiThemeProvider theme={theme}>
+        <style>
+          {"body { background-color: " +
+            theme.centerContent.backgroundColor +
+            "; }"}
+        </style>
         <Router>
           <CenteredGrid theme={theme} />
         </Router>

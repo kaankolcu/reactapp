@@ -13,6 +13,8 @@ import { Link } from "react-router-dom";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 
+import Switch from "@material-ui/core/Switch";
+
 export default class IconBtns extends Component {
   render() {
     const { theme, onClick } = this.props;
@@ -49,6 +51,43 @@ export class MenuIconBtn extends Component {
         >
           <MenuIcon />
         </IconButton>
+      </div>
+    );
+  }
+}
+
+export class NightModeSwitch extends Component {
+  state = {
+    checkedA: true
+  };
+  constructor(props) {
+    super(props);
+  }
+
+  handleChange = (name, theme) => event => {
+    this.setState(
+      {
+        [name]: event.target.checked
+      },
+      () => {
+        console.log(theme.paletteType);
+      }
+    );
+  };
+
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
+    nextProps.theme.paletteType = nextState.checkedA ? "dark" : "light";
+  }
+
+  render() {
+    const { theme } = this.props;
+    return (
+      <div>
+        <Switch
+          checked={this.state.checkedA}
+          onChange={this.handleChange("checkedA", theme)}
+          value="checkedA"
+        />
       </div>
     );
   }

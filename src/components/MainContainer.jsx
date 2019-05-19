@@ -22,32 +22,37 @@ const styles = theme => ({
   }
 });
 
-function CenteredGrid(props) {
-  const { classes, theme } = props;
+class CenteredGrid extends React.Component {
+  render() {
+    const { classes, theme } = this.props;
+    return (
+      <div className={classes.content}>
+        <Grid container spacing={36}>
+          <Grid
+            container
+            spacing={12}
+            className="bg-dark text-white text-center"
+          >
+            <Grid item xs={1}>
+              <SideBar />
+            </Grid>
+            <Grid item xs={10} className="pt-4">
+              <Header theme={theme} />
+            </Grid>
+            <Grid item xs={1} />
+          </Grid>
 
-  return (
-    <div className={classes.content}>
-      <Grid container spacing={36}>
-        <Grid container spacing={12} className="bg-dark text-white text-center">
-          <Grid item xs={1}>
-            <SideBar />
-          </Grid>
-          <Grid item xs={10} className="pt-4">
-            <Header theme={theme} />
-          </Grid>
-          <Grid item xs={1} />
-        </Grid>
-
-        <Grid container spacing={32}>
-          <Grid item xs={12} style={theme.centerContent}>
-            <RouterNav />
-            <Paper className={classes.paper}>xs=12</Paper>
-            <Paper className={classes.paper}>xs=12</Paper>
+          <Grid container spacing={32}>
+            <Grid item xs={12} style={theme.centerContent}>
+              <RouterNav />
+              <Paper className={classes.paper}>xs=12</Paper>
+              <Paper className={classes.paper}>xs=12</Paper>
+            </Grid>
           </Grid>
         </Grid>
-      </Grid>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 CenteredGrid.propTypes = {

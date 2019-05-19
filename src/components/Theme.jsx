@@ -12,7 +12,11 @@ function getTheme(theme) {
     theme.paletteType === "light" ? blueGrey[200] : orange[500];
   const centreContainercolor =
     theme.paletteType === "light" ? blueGrey[900] : blueGrey[100];
+
   return createMuiTheme({
+    changeTheme: function() {
+      this.paletteType = this.paletteType == "dark" ? "light" : "dark";
+    },
     palette: {
       type: theme.paletteType,
       background: {
