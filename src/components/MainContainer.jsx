@@ -7,6 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import SideBar from "./SideBar";
 import Header from "./Header";
 
+import RouterNav from "./navigations/MainRouter/RouterNav";
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -14,42 +16,33 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    marginTop: 5,
+    marginBottom: 5
   }
 });
 
 function CenteredGrid(props) {
-  const { classes } = props;
+  const { classes, theme } = props;
 
   return (
     <div className={classes.content}>
-      <Grid container spacing={24}>
-        <Grid
-          container
-          spacing={0}
-          className="bg-dark text-white text-center h-100"
-        >
+      <Grid container spacing={36}>
+        <Grid container spacing={12} className="bg-dark text-white text-center">
           <Grid item xs={1}>
             <SideBar />
           </Grid>
-          <Grid item xs={11} className="pt-4">
-            <Header />
+          <Grid item xs={10} className="pt-4">
+            <Header theme={theme} />
           </Grid>
+          <Grid item xs={1} />
         </Grid>
 
         <Grid container spacing={32}>
-          <Grid item xs={12} style={{ margin: 5, padding: 5 }}>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
-            <Paper className={classes.paper}>xs=6</Paper>
+          <Grid item xs={12} style={theme.centerContent}>
+            <RouterNav />
+            <Paper className={classes.paper}>xs=12</Paper>
+            <Paper className={classes.paper}>xs=12</Paper>
           </Grid>
         </Grid>
       </Grid>

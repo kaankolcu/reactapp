@@ -3,27 +3,32 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import Typography from "@material-ui/core/Typography";
 
+import IconBtns from "../components/IconButtons/IconBtns";
+
+import {
+  MenuIconBtn,
+  ChevronIconBtn
+} from "../components/IconButtons/IconBtns";
+
+import { Link } from "react-router-dom";
+
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    textDecoration: "none"
   },
   menuButton: {
     marginLeft: 12,
@@ -41,10 +46,17 @@ const styles = theme => ({
   },
   drawerHeader: {
     display: "flex",
-    alignItems: "center",
     padding: "0 8px",
     ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
+    justifyContent: "space-between"
+  },
+  drawerHeaderMenu: {
+    position: "absolute",
+    left: 0
+  },
+  drawerChevron: {
+    position: "absolute",
+    right: 0
   },
   content: {
     flexGrow: 1,
@@ -83,18 +95,14 @@ class PersistentDrawerLeft extends React.Component {
 
     return (
       <div className={classes.root}>
-        <CssBaseline />
-
         <Toolbar disableGutters={!open} style={{ height: 100 }}>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
+          <MenuIconBtn
             onClick={this.handleDrawerOpen}
+            theme={theme}
             className={classNames(classes.menuButton, open && classes.hide)}
-          >
-            <MenuIcon />
-          </IconButton>
+          />
         </Toolbar>
+
         <ClickAwayListener onClickAway={this.handleDrawerClose}>
           <Drawer
             className={classes.drawer}
@@ -106,36 +114,52 @@ class PersistentDrawerLeft extends React.Component {
             }}
           >
             <div className={classes.drawerHeader}>
-              <IconButton onClick={this.handleDrawerClose}>
-                {theme.direction === "ltr" ? (
-                  <ChevronLeftIcon />
-                ) : (
-                  <ChevronRightIcon />
-                )}
-              </IconButton>
+              <div className={classes.drawerHeaderMenu}>
+                <IconBtns onClick={this.handleDrawerClose} theme={theme} />
+              </div>
+              <div className={classes.drawerChevron}>
+                <ChevronIconBtn
+                  onClick={this.handleDrawerClose}
+                  theme={theme}
+                />
+              </div>
             </div>
             <Divider />
             <List>
-              {["Inbox", "Starred", "Send email", "Drafts"].map(
+              {["Coding Challenges", "Coding Environment", "About"].map(
                 (text, index) => (
+                  <Link
+                    to={text.replace(/\s/g, "")}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <ListItem
+                      button
+                      key={text}
+                      onClick={this.handleDrawerClose}
+                    >
+                      <ListItemIcon>
+                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                      </ListItemIcon>
+                      <Typography style={theme.text.primary}>{text}</Typography>
+                    </ListItem>
+                  </Link>
+                )
+              )}
+              <Divider />
+            </List>
+
+            <List>
+              {["All mail", "Trash", "Spam"].map((text, index) => (
+                <Link go={text}>
                   <ListItem button key={text}>
                     <ListItemIcon>
                       {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                     </ListItemIcon>
-                    <ListItemText primary={text} />
+                    <Typography style={{ color: theme.text.secondary }}>
+                      {text}
+                    </Typography>
                   </ListItem>
-                )
-              )}
-            </List>
-            <Divider />
-            <List>
-              {["All mail", "Trash", "Spam"].map((text, index) => (
-                <ListItem button key={text}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
+                </Link>
               ))}
             </List>
           </Drawer>

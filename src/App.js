@@ -1,13 +1,22 @@
 import React from "react";
-// import logo from "./logo.svg";
 import "./App.css";
 
-import MainContainer from "./components/MainContainer";
+import CenteredGrid from "./components/MainContainer";
+
+import { MuiThemeProvider } from "@material-ui/core/styles";
+
+import theme from "./components/Theme";
+
+import { BrowserRouter as Router } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <MainContainer />
+      <MuiThemeProvider theme={theme}>
+        <Router>
+          <CenteredGrid theme={theme} />
+        </Router>
+      </MuiThemeProvider>
     </div>
   );
 }
